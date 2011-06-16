@@ -11,12 +11,6 @@ stack<Type>::stack(int maxsize) :
 	Element(new Type[maxsize]), MaxSize(maxsize), StackPointer(-1) {
 }
 
-//template<class Type>
-//stack<Type>::stack() :
-//	MaxSize(10), Element(new Type[10]), StackPointer(-1) {
-//}
-//
-//
 
 template<class Type>
 bool stack<Type>::Pop(Type& TopElem) {
