@@ -55,6 +55,7 @@ bool intpost::ApplyOperator(char Operator) {
 	case '-':
 		tempInteger = operand2 - operand1;
 		NumStack.Push(tempInteger);
+		break;
 	default:
 		return false;
 	}
@@ -63,7 +64,7 @@ bool intpost::ApplyOperator(char Operator) {
 bool intpost::Evaluate() {
 	int token = 0;
 	int longNumber=0;
-	int numDigitos=1;
+	int numDigitos=0;
 	while (PostfixExpr[token]) {
 		if (Operator(PostfixExpr[token])) {
 			if (!ApplyOperator(PostfixExpr[token])) {
@@ -76,18 +77,16 @@ bool intpost::Evaluate() {
 			int tempInteger = int(PostfixExpr[token]) - int('0');
 
 
-			//o proximo elemento tambem é um numero
-			if(int(PostfixExpr[token+1]) >= int('0')
-							&& int(PostfixExpr[token+1]) <= int('9')) {
-				longNumber= tempInteger+(longNumber*pow(10,numDigitos));
-				numDigitos++;
-			}else{
-				NumStack.Push(tempInteger);
+			longNumber = tempInteger + (longNumber * pow(10, numDigitos));
+			numDigitos++;
+			//se for o ultimo digito do numero inclui o mesmo na pilha
+			if (PostfixExpr[token + 1] == ' ') {
+				NumStack.Push(longNumber);
 			}
 		}else{
 			//zera as variaveis auxiliares de numero ja que ele terminou de ler um numero ou
 			//terminou de ler um operador.
-			numDigitos=1;
+			numDigitos=0;
 			longNumber=0;
 		}
 		token++;

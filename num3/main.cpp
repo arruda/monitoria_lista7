@@ -2,13 +2,15 @@
 #include <string>
 
 int main() {
-	while (1) {
+	int rep=4;
+	while (rep >0) {
 
 		intpost Postfix;
 		Postfix.Read();
 		if (Postfix.Evaluate())
 			Postfix.PrintAnswer();
 
+		rep--;
 	}
 	return 0;
 
